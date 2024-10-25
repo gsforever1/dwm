@@ -1,0 +1,85 @@
+-- Create Hotel Occupancy Fact Table 
+CREATE TABLE Hotel_Occupancy_Fact (
+    Occupancy_ID INT PRIMARY KEY,
+    Hotel_ID INT,
+    Room_ID INT,
+    Customer_ID INT,
+    Date DATE,
+    Number_of_Occupied_Rooms INT,
+    Number_of_Vacant_Rooms INT,
+    FOREIGN KEY (Hotel_ID) REFERENCES Hotel_Dimension(Hotel_ID),
+    FOREIGN KEY (Room_ID) REFERENCES Room_Dimension(Room_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES Customer_Dimension(Customer_ID),
+    FOREIGN KEY (Date) REFERENCES Time_Dimension(Date)
+ );
+-- Insert Data into Hotel_Occupancy_Fact Table
+ INSERT INTO Hotel_Occupancy_Fact (Occupancy_ID, Hotel_ID, Room_ID, Customer_ID, Date, 
+Number_of_Occupied_Rooms, Number_of_Vacant_Rooms)
+ VALUES 
+(1, 1, 101, 1, '2023-07-01', 1, 0),
+ (2, 1, 102, 2, '2023-07-02', 1, 1),
+ (3, 2, 103, 1, '2023-08-10', 1, 1);
+
+
+
+-- Create Hotel Dimension Table 
+CREATE TABLE Hotel_Dimension ( Hotel_ID INT PRIMARY KEY, Hotel_Name 
+VARCHAR(100), Hotel_Type VARCHAR(50), Star_Rating INT, Region VARCHAR(100), City 
+VARCHAR(100), State VARCHAR(100), Country VARCHAR(100) );-- Create Hotel Dimension 
+Table
+ CREATE TABLE Hotel_Dimension (
+    Hotel_ID INT PRIMARY KEY,
+    Hotel_Name VARCHAR(100),
+    Hotel_Type VARCHAR(50),
+    Star_Rating INT,
+    Region VARCHAR(100),
+    City VARCHAR(100),
+    State VARCHAR(100),
+    Country VARCHAR(100)
+ );
+-- Insert Data into Hotel_Dimension Table
+ INSERT INTO Hotel_Dimension (Hotel_ID, Hotel_Name, Hotel_Type, Star_Rating, Region, City, 
+State, Country)
+ VALUES 
+(1, 'Grand Plaza', 'Luxury', 5, 'Northeast', 'New York', 'NY', 'USA'),
+ (2, 'Sea View', 'Budget', 3, 'West Coast', 'Los Angeles', 'CA', 'USA');
+
+
+
+-- Create Room Dimension Table
+ CREATE TABLE Room_Dimension (
+    Room_ID INT PRIMARY KEY,
+    Room_Type VARCHAR(50),
+    Max_Occupant INT,
+    Number_of_Beds INT,
+    Room_Size VARCHAR(50),
+ AC_Non_AC VARCHAR(10),
+    Renovation_Years INT
+ );
+-- Insert Data into Room_Dimension Table
+ INSERT INTO Room_Dimension (Room_ID, Room_Type, Max_Occupant, Number_of_Beds, 
+Room_Size, AC_Non_AC, Renovation_Years)
+ VALUES 
+(101, 'Single', 1, 1, 'Small', 'AC', 2018),
+ (102, 'Double', 2, 2, 'Medium', 'Non-AC', 2020),
+ (103, 'Suite', 4, 3, 'Large', 'AC', 2021);
+
+
+
+-- Create Customer Dimension Table
+ CREATE TABLE Customer_Dimension (
+    Customer_ID INT PRIMARY KEY,
+    Customer_Name VARCHAR(100),
+ Address VARCHAR(200),
+ Type_of_Stay VARCHAR(50),
+    Check_in DATE,
+    Check_out DATE,
+ Amount_Paid DECIMAL(10, 2)
+ );
+-- Insert Data into Customer_Dimension Table
+ INSERT INTO Customer_Dimension (Customer_ID, Customer_Name, Address, Type_of_Stay, 
+Check_in, Check_out, Amount_Paid)
+ VALUES 
+(1, 'John Doe', '123 Main St, New York, NY', 'Business', '2023-07-01', '2023-07-05', 500.00),
+ (2, 'Jane Smith', '456 Elm St, Los Angeles, CA', 'Vacation', '2023-08-10', '2023-08-15', 750.00);
+
